@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My First Django Project{% endblock title %}</title>
+</head>
+<body>
+    <header style="background-color: #f0f0f0; padding: 10px;">
+        <h1>Professional Django Application</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            </nav>
+        <hr>
+    </header>
+
+    <main style="padding: 20px;">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">
+        <p>&copy; 2025 Django Developer Assistant</p>
+    </footer>
+</body>
+</html>

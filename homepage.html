@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elena Chen - Fine Art Painter</title>
+    <style>
+        /* All your custom CSS is preserved here */
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5dc; /* Cream background */
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #8b4513; /* Saddle brown for hover */
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+        }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #about {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        #about img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        #portfolio, #recent-work {
+            text-align: center;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .gallery-item {
+            text-align: center;
+            /* Added styling for dynamic items */
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px; /* Fixed width for better grid control */
+        }
+        .gallery-item img {
+            width: 100%; /* Make image fill the container */
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: none; /* Remove redundant shadow */
+        }
+        #contact {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #8b4513;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #654321;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        /* New custom style for ArtWork details */
+        .artwork-price {
+            font-weight: bold;
+            color: #8b4513; 
+            margin-top: 5px;
+            display: block;
+        }
+        .artwork-categories span {
+            display: inline-block;
+            background-color: #f0e68c; /* Khaki background */
+            color: #8b4513;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Elena Chen - Fine Art Painter</h1>
+        <nav>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="{% url 'admin:index' %}">Admin</a> 
+        </nav>
+    </header>
+
+    <div class="carousel-container" style="position: relative; width: 100%; height: 70vh; overflow: hidden;">
+    {% for artwork in carousel_artwork %}
+        <div class="carousel-item" style="position: absolute; width: 100%; height: 100%; transition: opacity 1s; opacity: {% if forloop.first %}1{% else %}0{% endif %};">
+            
+            {% if artwork.image %}
+                <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="hero-text">
+                    <p>{{ artwork.title }}, {{ artwork.dimensions }}, ${{ artwork.price }}</p>
+                </div>
+            {% endif %}
+
+        </div>
+    {% empty %}
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80" alt="Misty Coastal Morning">
+        <div class="hero-text">
+            <p>Misty Coastal Morning, Oil on Canvas, 48*36 inches</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    </div>
+
+    <section id="about">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" alt="Elena Chen">
+        <div>
+            <h2>About Elena Chen</h2>
+            <p>Elena Chen is a renowned fine art painter specializing in oil paintings that capture the essence of nature and human emotion. With over a decade of experience, her work has been exhibited in galleries worldwide. Elena draws inspiration from coastal landscapes and abstract forms, blending realism with imaginative flair.</p>
+            <p>Based in San Francisco, she holds a Master's in Fine Arts and is passionate about connecting art with everyday life. When not in her studio, Elena enjoys hiking and exploring new artistic mediums.</p>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2>Available ArtWork (Portfolio)</h2>
+        <div class="gallery">
+            
+            {% for artwork in artwork_list %}
+            <div class="gallery-item">
+                {% if artwork.image %}
+                <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
+                {% else %}
+                <div style="width: 100%; height: 200px; background-color: #eee; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                    [No Image Uploaded]
+                </div>
+                {% endif %}
+
+                <p style="font-weight: bold; margin-top: 10px;">{{ artwork.title }}</p>
+                <span class="artwork-price">${{ artwork.price }}</span>
+                
+                <div class="artwork-categories">
+                    {% for category in artwork.categories.all %}
+                        <span>{{ category.name }}</span>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            {% empty %}
+            <p style="padding: 20px; border: 1px dashed #333; width: 100%; border-radius: 5px;">
+                No ArtWork is currently available for display. Please add items in the <a href="{% url 'admin:index' %}">Admin area</a>.
+            </p>
+            {% endfor %}
+            </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Interested in commissioning a piece or learning more about Elena's work? Reach out!</p>
+        <form action="#" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+        <p>Email: studio@elenachenart.com</p>
+        <p>Instagram: @elenachen_art</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Elena Chen. All rights reserved.</p>
+    </footer>
+</body>
+</html>
